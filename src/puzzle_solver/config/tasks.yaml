@@ -8,28 +8,24 @@ generate_coding_question:
   expected_output: >
     A coding interview question that's easy for a human but too hard for AI.
   agent: question_writer
-
 write_unit_tests:
   description: >
     The unit tests should cover edge cases and ensure that the solution is correct.
   expected_output: >
     Unit tests for the given coding interview question.
   agent: qa_engineer
-
 solve_puzzle:
   description: >
     Solve the generated coding interview questions and only return the correct solution in Python. No explanations or text.
   expected_output: >
     Python code for the correct solution for the coding interview question.
   agent: solver
-
 check_solution:
   description: >
     Check whether the generated solution is correct by running unit tests.
   expected_output: >
     A report with the results of the unit tests.
   agent: question_writer
-
 write_report:
   description: >
     Write a report about the work of the crew. Explain how you iterated on the problem the crew created. Were you able to create an AI-proof puzzle? Be clear and do not editorialize. Include the code for the puzzle and solution (successful or failed).

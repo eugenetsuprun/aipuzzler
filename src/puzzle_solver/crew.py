@@ -1,3 +1,4 @@
+from json import tool
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import CodeInterpreterTool
@@ -51,30 +52,30 @@ class AIProofPuzzler:
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
 
-    @task
-    def write_unit_tests(self) -> Task:
-        return Task(
-            config=self.tasks_config["write_unit_tests"],
-        )
+    # @task
+    # def write_unit_tests(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config["write_unit_tests"],
+    #     )
 
-    @task
-    def solve_puzzle(self) -> Task:
-        return Task(
-            config=self.tasks_config["solve_puzzle"],
-        )
+    # @task
+    # def solve_puzzle(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config["solve_puzzle"],
+    #     )
 
-    @task
-    def check_solution(self) -> Task:
-        return Task(
-            config=self.tasks_config["check_solution"],
-            tools=[CodeInterpreterTool()],
-        )
+    # @task
+    # def check_solution(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config["check_solution"],
+    #         tools=[CodeInterpreterTool()],
+    #     )
 
-    @task
-    def write_report(self) -> Task:
-        return Task(
-            config=self.tasks_config["write_report"],
-        )
+    # @task
+    # def write_report(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config["write_report"],
+    #     )
 
     @crew
     def crew(self) -> Crew:
@@ -84,6 +85,8 @@ class AIProofPuzzler:
         manager = Agent(
             config=self.agents_config["manager"],
             verbose=True,
+            allow_delegation=True,
+            tools=[CodeInterpreterTool()],
         )
 
         return Crew(
@@ -92,7 +95,7 @@ class AIProofPuzzler:
                 Task(config=self.tasks_config[task_name])
                 for task_name in self.tasks_config
             ],
-            process=Process.hierarchical,
+            process=Process.sequential,
             verbose=True,
             memory=True,
             output_log_file="output.log",
