@@ -48,47 +48,8 @@ class AIProofPuzzler:
             verbose=True,
         )
 
-    # To learn more about structured task outputs,
-    # task dependencies, and task callbacks, check out the documentation:
-    # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-
-    # @task
-    # def write_unit_tests(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config["write_unit_tests"],
-    #     )
-
-    # @task
-    # def solve_puzzle(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config["solve_puzzle"],
-    #     )
-
-    # @task
-    # def check_solution(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config["check_solution"],
-    #         tools=[CodeInterpreterTool()],
-    #     )
-
-    # @task
-    # def write_report(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config["write_report"],
-    #     )
-
     @crew
     def crew(self) -> Crew:
-        # To learn how to add knowledge sources to your crew, check out the documentation:
-        # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
-
-        manager = Agent(
-            config=self.agents_config["manager"],
-            verbose=True,
-            allow_delegation=True,
-            tools=[CodeInterpreterTool()],
-        )
-
         return Crew(
             agents=self.agents,
             tasks=[
@@ -99,5 +60,4 @@ class AIProofPuzzler:
             verbose=True,
             memory=True,
             output_log_file="output.log",
-            manager_agent=manager,
         )
